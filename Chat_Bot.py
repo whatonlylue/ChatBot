@@ -21,6 +21,6 @@ for word in text_id:
         new_word = lemmatizer.lemmatize(word[0], pos="a")
         new_text_id.append(new_word)
     else:
-        new_text_id.append(word[0])
+        new_text_id.append(word[0]) 
 
 print(new_text_id)
