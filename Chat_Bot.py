@@ -11,12 +11,15 @@ lemmatizer = WordNetLemmatizer()
 from nltk.util import ngrams
 # Imports a counter to count the created ngrams
 from collections import Counter
+# Imports a masssive corpus of text, around 100,000 words, inorder to influence the probablity of the functions
+import nltk.corpus
+# Imports random from the python library, want to use it later to randomly chose words to use
+import random
 
-text = """They had no proof. He knew that they knew he had done it but they didn't have any proof. 
-It was a huge distinction and it was the difference between him keeping his freedom or being locked away for decades. 
-They continued to question him, probing him for information that they could use against him or find the proof they 
-needed to put him away. He smiled and continued to block their every inquiry by feigning his innocence for a crime 
-they all knew he committed. """
+
+# The corups is inputed in as a list, but must be a string inorder to lemmatize, so its turned into a string here
+text = " ".join(nltk.corpus.abc.words())
+
 
 
 # This is counts the total tokens in each text split by words, used later to compare to the ngram models to find a probability
@@ -38,11 +41,25 @@ def text_cleaner(text):
 
     return new_text_id
 
-
 bigram_text = ngrams(text_cleaner(text), 2)
 bigram_text_frq = Counter(bigram_text)
 
 trigram_text = ngrams(text_cleaner(text), 3)
 trigram_text_frq = Counter(trigram_text)
 
-print(trigram_text_frq)
+
+def generate_text(bigram_text_frq,new_text_id):
+    new_sentence = " "
+    first_word = random.choice(new_text_id)
+    new_sentence += first_word
+    for i in range(10):
+        for fword in bigram_text_frq.keys():
+            if fword[0] == first_word:
+                new_sentence = new_sentence + " " + fword[-1]
+                first_word = fword[-1]
+                break
+                
+    print(new_sentence)
+        
+generate_text(bigram_text_frq,text_cleaner(text))
+
