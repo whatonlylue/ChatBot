@@ -18,7 +18,7 @@ import random
 
 
 # The corups is inputed in as a list, but must be a string inorder to lemmatize, so its turned into a string here
-text = " ".join(nltk.corpus.abc.words())
+text = " ".join(nltk.corpus.brown.words())
 
 
 
@@ -39,6 +39,9 @@ def text_cleaner(text):
         else:
             new_text_id.append(lemmatizer.lemmatize(word[0])) 
 
+    for word in new_text_id:
+        if word == '``' or word == ';':
+            new_text_id.remove(word)
     return new_text_id
 
 bigram_text = ngrams(text_cleaner(text), 2)
@@ -48,18 +51,35 @@ trigram_text = ngrams(text_cleaner(text), 3)
 trigram_text_frq = Counter(trigram_text)
 
 
-def generate_text(bigram_text_frq,new_text_id):
+
+
+
+def generate_text(bigram_text_frq,text):
     new_sentence = " "
-    first_word = random.choice(new_text_id)
+    new_bigram_ratio = bigram_text_frq.most_common()
+    first_word = random.choice(text)
     new_sentence += first_word
-    for i in range(10):
-        for fword in bigram_text_frq.keys():
-            if fword[0] == first_word:
-                new_sentence = new_sentence + " " + fword[-1]
-                first_word = fword[-1]
+    for i in range(6):
+        for fword in new_bigram_ratio:
+            if fword[0][0] == first_word:
+                new_sentence += " " + fword[0][1]+ " " + fword[0][-1]
+                first_word = fword[0][-1]
                 break
                 
     print(new_sentence)
         
-generate_text(bigram_text_frq,text_cleaner(text))
+generate_text(trigram_text_frq,text_cleaner(text))
 
+
+# def ratio_maker(ngram_text_frq,text):
+#     total = token_total(text)
+#     new_ngram = ngram_text_frq.most_common(10)
+#     replaced_ngram = []
+#     for list in new_ngram:
+#         inner = []
+#         inner.append(list[0])
+#         inner.append(list[1] / total) 
+#         replaced_ngram.append(inner)
+#     return replaced_ngram
+
+# print(ratio_maker(trigram_text_frq,text))
