@@ -21,10 +21,7 @@ import random
 # The corups is inputed in as a list, but must be a string inorder to lemmatize, so its turned into a string here
 text = " ".join(nltk.corpus.abc.words())
 
-# This is counts the total tokens in each text split by words, used later to compare to the ngram models to find a probability
-# def token_total(text):
-#     total = len(word_tokenize(text))
-#     return total
+
 # Lemmatizes all words in the text, does a special lemmatizer for adjectives because they are missed by the regular settings
 def text_cleaner(text):
     # This parses the text word by word in a list
