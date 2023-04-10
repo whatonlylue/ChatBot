@@ -31,7 +31,7 @@ def text_cleaner(text):
 trigram_text = ngrams(text_cleaner(text), 3)
 trigram_text_frq = Counter(trigram_text)
 
-def generate_text(ngram_text_frq,text):
+def generate_text(ngram_text_frq):
     new_sentence = " "
     new_ngram_ratio = ngram_text_frq.most_common()
     first_word = "the"
@@ -44,6 +44,6 @@ def generate_text(ngram_text_frq,text):
                 
     print(new_sentence)
         
-generate_text(trigram_text_frq,text_cleaner(text))
+generate_text(trigram_text_frq)
 
 
