@@ -41,7 +41,6 @@ def generate_text(ngram_text_frq,text):
     first_word = "the"
     for i in range(5):
         current_ngrams = [ngram for ngram in new_ngram_ratio if ngram[0][0] == first_word]
-        print(current_ngrams)
         next_word = random.choice(current_ngrams)
         new_sentence += " " + next_word[0][0] + " " + next_word[0][1]
         first_word = next_word[0][-1]
