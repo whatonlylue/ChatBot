@@ -4,10 +4,6 @@
 import nltk
 # Brings the tokenizer from nltk kits, parses text into words
 from nltk.tokenize import word_tokenize
-# Brings the lemmatizer from nltk kits, simplifies words into there base form 
-from nltk.stem import WordNetLemmatizer
-# Activation of the lemmatizer
-lemmatizer = WordNetLemmatizer()
 # Bringing the n-grams model from nltk
 from nltk.util import ngrams
 # Imports a counter to count the created ngrams
