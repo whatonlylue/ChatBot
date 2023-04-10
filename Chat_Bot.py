@@ -15,7 +15,7 @@ import random
 
 
 # The corups is inputed in as a list, but must be a string inorder to lemmatize, so its turned into a string here
-text = " ".join(nltk.corpus.abc.words())
+text = " ".join(nltk.corpus.brown.words())
 
 
 # Lemmatizes all words in the text, does a special lemmatizer for adjectives because they are missed by the regular settings
@@ -24,7 +24,7 @@ def text_cleaner(text):
     text_split_up = word_tokenize(text)
     # Cleans Text
     for word in text_split_up:
-        if word == '``' or word == ';' or word =='.':
+        if word == '``' or word == ';':
             text_split_up.remove(word)
     return text_split_up
 
@@ -35,13 +35,15 @@ def generate_text(ngram_text_frq):
     new_sentence = " "
     new_ngram_ratio = ngram_text_frq.most_common()
     first_word = "the"
-    for i in range(5):
+    while "." not in new_sentence:
         current_ngrams = [ngram for ngram in new_ngram_ratio if ngram[0][0] == first_word]
         next_word = random.choice(current_ngrams)
         new_sentence += " " + next_word[0][0] + " " + next_word[0][1]
         first_word = next_word[0][-1]
-            
-                
+
+    if "." in new_sentence:
+        new_sentence = new_sentence[0:new_sentence.find(".")]
+                    
     print(new_sentence)
         
 generate_text(trigram_text_frq)
